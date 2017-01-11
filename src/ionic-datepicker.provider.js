@@ -3,6 +3,7 @@ angular.module('ionic-datepicker.provider', [])
   .provider('ionicDatePicker', function () {
 
     var config = {
+      titleLabel: null,
       setLabel: 'Set',
       todayLabel: 'Today',
       closeLabel: 'Close',
@@ -27,6 +28,7 @@ angular.module('ionic-datepicker.provider', [])
       var $scope = $rootScope.$new();
       $scope.today = resetHMSM(new Date()).getTime();
       $scope.disabledDates = [];
+      $scope.data = {};
 
       //Reset the hours, minutes, seconds and milli seconds
       function resetHMSM(currentDate) {
@@ -43,8 +45,8 @@ angular.module('ionic-datepicker.provider', [])
           $scope.currentDate.setFullYear($scope.currentDate.getFullYear());
         }
         $scope.currentDate.setMonth($scope.currentDate.getMonth() - 1);
-        $scope.currentMonth = $scope.mainObj.monthsList[$scope.currentDate.getMonth()];
-        $scope.currentYear = $scope.currentDate.getFullYear();
+        $scope.data.currentMonth = $scope.mainObj.monthsList[$scope.currentDate.getMonth()];
+        $scope.data.currentYear = $scope.currentDate.getFullYear();
         refreshDateList($scope.currentDate);
       };
 
@@ -55,8 +57,8 @@ angular.module('ionic-datepicker.provider', [])
         }
         $scope.currentDate.setDate(1);
         $scope.currentDate.setMonth($scope.currentDate.getMonth() + 1);
-        $scope.currentMonth = $scope.mainObj.monthsList[$scope.currentDate.getMonth()];
-        $scope.currentYear = $scope.currentDate.getFullYear();
+        $scope.data.currentMonth = $scope.mainObj.monthsList[$scope.currentDate.getMonth()];
+        $scope.data.currentYear = $scope.currentDate.getFullYear();
         refreshDateList($scope.currentDate);
       };
 
@@ -153,10 +155,10 @@ angular.module('ionic-datepicker.provider', [])
         $scope.rows = [0, 7, 14, 21, 28, 35];
         $scope.cols = [0, 1, 2, 3, 4, 5, 6];
 
-        $scope.currentMonth = $scope.mainObj.monthsList[currentDate.getMonth()];
-        $scope.currentYear = currentDate.getFullYear().toString();
-        $scope.currentMonthSelected = angular.copy($scope.currentMonth);
-        $scope.currentYearSelected = angular.copy($scope.currentYear);
+        $scope.data.currentMonth = $scope.mainObj.monthsList[currentDate.getMonth()];
+        $scope.data.currentYear = currentDate.getFullYear();
+        $scope.data.currentMonthSelected = angular.copy($scope.data.currentMonth);
+        $scope.currentYearSelected = angular.copy($scope.data.currentYear);
         $scope.numColumns = 7;
       }
 
